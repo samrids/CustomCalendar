@@ -77,12 +77,17 @@ type
     RectShape9: TShape;
     RectShape11: TShape;
     lbl_SelectedDate: TLabel;
+    btn_NextMonth: TButton;
+    btn_ProvMonth: TButton;
     procedure FormCreate(Sender: TObject);
     procedure CmbYearChange(Sender: TObject);
     procedure CmbMonthChange(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure btn_NextMonthClick(Sender: TObject);
+    procedure btn_ProvMonthClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FYear, FMonth, FDay: Word;
@@ -111,6 +116,42 @@ begin
   CmbMonth.ItemIndex := CmbMonth.Items.IndexOf
     (format('%s', [MonthStr[FMonth]]));
   CreateCalendar(StrToInt(CmbYear.Text), 1 + CmbMonth.ItemIndex);
+end;
+
+procedure TForm2.btn_NextMonthClick(Sender: TObject);
+begin
+  if CmbMonth.ItemIndex < Pred(CmbMonth.Items.Count) then
+  begin
+    CmbMonth.ItemIndex := CmbMonth.ItemIndex + 1;
+    CmbMonthChange(nil);
+  end
+  else
+  begin
+    if CmbYear.ItemIndex < Pred(CmbYear.Items.Count) then
+    begin
+      CmbYear.ItemIndex := (CmbYear.ItemIndex + 1);
+      CmbMonth.ItemIndex := 0;
+      CmbYearChange(nil);
+    end
+  end;
+end;
+
+procedure TForm2.btn_ProvMonthClick(Sender: TObject);
+begin
+  if CmbMonth.ItemIndex > 0 then
+  begin
+    CmbMonth.ItemIndex := CmbMonth.ItemIndex - 1;
+    CmbMonthChange(nil);
+  end
+  else
+  begin
+    if CmbYear.ItemIndex > 0 then
+    begin
+      CmbYear.ItemIndex := (CmbYear.ItemIndex - 1);
+      CmbMonth.ItemIndex := Pred(CmbMonth.Items.Count);
+      CmbYearChange(nil);
+    end
+  end;
 end;
 
 procedure TForm2.calendarCustomClick(Sender: TObject);
@@ -208,26 +249,26 @@ var
   DaysOfmonth: Word;
   currDateStr: String;
   IsCurrMonthYear: Boolean;
-  function IsCurrentMonthYear(ADate,BDate: TDate): boolean;
+  function IsCurrentMonthYear(ADate, BDate: TDate): Boolean;
   var
-    y1,m1,d1,
-    y2,m2,d2: Word;
+    y1, m1, d1, y2, m2, d2: Word;
   begin
-     DecodeDate(ADate,y1,m1,d1);
-     DecodeDate(BDate,y2,m2,d2);
+    DecodeDate(ADate, y1, m1, d1);
+    DecodeDate(BDate, y2, m2, d2);
 
-     Result:= ((y1=y2) and (m1=m2));
+    Result := ((y1 = y2) and (m1 = m2));
   end;
+
 begin
-  currDateStr := FormatDateTime('YYYY-MM-DD', Date);
+  currDateStr := formatdatetime('YYYY-MM-DD', Date);
   currDate := EncodeDate(AYear, AMonth, 1);
   DecodeDate(currDate, y, m, d);
 
   CurrDay := DayOfTheWeek(EncodeDate(y, m, 1));
   DaysOfmonth := DaysInMonth(currDate);
-  IsCurrMonthYear:= IsCurrentMonthYear(Date, currDate);
+  IsCurrMonthYear := IsCurrentMonthYear(Date, currDate);
 
-  for i := 0 to PRed(Self.ComponentCount) do
+  for i := 0 to Pred(Self.ComponentCount) do
   begin
     if (Self.Components[i] is TRectShape) then
     begin
@@ -242,7 +283,7 @@ begin
   end;
   for i := CurrDay to (DaysOfmonth + CurrDay) - 1 do
   begin
-    for j := 0 to PRed(Self.ComponentCount) do
+    for j := 0 to Pred(Self.ComponentCount) do
     begin
       if (Self.Components[j] is TRectShape) then
       begin
@@ -260,7 +301,7 @@ begin
             (Self.Components[j] as TRectShape).Click;
           end;
 
-          if ((i=CurrDay) and (IsCurrMonthYear = False)) then
+          if ((i = CurrDay) and (IsCurrMonthYear = False)) then
             (Self.Components[j] as TRectShape).Click;
 
           Break;
@@ -269,7 +310,7 @@ begin
     end;
   end;
 
-  for i := 0 to PRed(Self.ComponentCount) do
+  for i := 0 to Pred(Self.ComponentCount) do
   begin
     if (Self.Components[i] is TRectShape) then
     begin
@@ -303,11 +344,20 @@ begin
   CreateCalendar(StrToInt(CmbYear.Text), 1 + CmbMonth.ItemIndex);
 end;
 
+procedure TForm2.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_RIGHT then
+    btn_NextMonth.Click
+  else if Key = VK_LEFT then
+    btn_ProvMonth.Click;
+end;
+
 procedure TForm2.InitCalendarBoxClick;
 var
   i: Word;
 begin
-  for i := 0 to PRed(Self.ComponentCount) do
+  for i := 0 to Pred(Self.ComponentCount) do
   begin
     if (Self.Components[i] is TRectShape) then
     begin

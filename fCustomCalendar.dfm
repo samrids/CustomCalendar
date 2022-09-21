@@ -1,34 +1,35 @@
 object Form2: TForm2
   Left = 0
   Top = 0
-  Caption = 'Form2'
+  Caption = 'Delphi code stuff : Create a custom calendar'
   ClientHeight = 699
-  ClientWidth = 757
+  ClientWidth = 794
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   OnClick = FormClick
   OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 757
+    Width = 794
     Height = 699
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     OnClick = Panel1Click
-    ExplicitLeft = 120
-    ExplicitTop = -8
+    ExplicitWidth = 757
     object calendar42: TRectShape
       Tag = 42
-      Left = 628
+      Left = 644
       Top = 576
       Width = 100
       Height = 100
@@ -46,7 +47,7 @@ object Form2: TForm2
     end
     object calendar41: TRectShape
       Tag = 41
-      Left = 528
+      Left = 544
       Top = 576
       Width = 100
       Height = 100
@@ -64,7 +65,7 @@ object Form2: TForm2
     end
     object calendar40: TRectShape
       Tag = 40
-      Left = 428
+      Left = 444
       Top = 576
       Width = 100
       Height = 100
@@ -82,7 +83,7 @@ object Form2: TForm2
     end
     object calendar39: TRectShape
       Tag = 39
-      Left = 328
+      Left = 344
       Top = 576
       Width = 100
       Height = 100
@@ -100,7 +101,7 @@ object Form2: TForm2
     end
     object calendar38: TRectShape
       Tag = 38
-      Left = 228
+      Left = 244
       Top = 576
       Width = 100
       Height = 100
@@ -118,7 +119,7 @@ object Form2: TForm2
     end
     object calendar37: TRectShape
       Tag = 37
-      Left = 128
+      Left = 144
       Top = 576
       Width = 100
       Height = 100
@@ -136,7 +137,7 @@ object Form2: TForm2
     end
     object calendar36: TRectShape
       Tag = 36
-      Left = 28
+      Left = 44
       Top = 576
       Width = 100
       Height = 100
@@ -154,7 +155,7 @@ object Form2: TForm2
     end
     object calendar35: TRectShape
       Tag = 35
-      Left = 628
+      Left = 644
       Top = 476
       Width = 100
       Height = 100
@@ -172,7 +173,7 @@ object Form2: TForm2
     end
     object calendar34: TRectShape
       Tag = 34
-      Left = 528
+      Left = 544
       Top = 476
       Width = 100
       Height = 100
@@ -190,7 +191,7 @@ object Form2: TForm2
     end
     object calendar33: TRectShape
       Tag = 33
-      Left = 428
+      Left = 444
       Top = 476
       Width = 100
       Height = 100
@@ -208,7 +209,7 @@ object Form2: TForm2
     end
     object calendar32: TRectShape
       Tag = 32
-      Left = 328
+      Left = 344
       Top = 476
       Width = 100
       Height = 100
@@ -226,7 +227,7 @@ object Form2: TForm2
     end
     object calendar31: TRectShape
       Tag = 31
-      Left = 228
+      Left = 244
       Top = 476
       Width = 100
       Height = 100
@@ -244,7 +245,7 @@ object Form2: TForm2
     end
     object calendar30: TRectShape
       Tag = 30
-      Left = 128
+      Left = 144
       Top = 476
       Width = 100
       Height = 100
@@ -262,7 +263,7 @@ object Form2: TForm2
     end
     object calendar29: TRectShape
       Tag = 29
-      Left = 28
+      Left = 44
       Top = 476
       Width = 100
       Height = 100
@@ -280,7 +281,7 @@ object Form2: TForm2
     end
     object calendar28: TRectShape
       Tag = 28
-      Left = 628
+      Left = 644
       Top = 376
       Width = 100
       Height = 100
@@ -298,7 +299,7 @@ object Form2: TForm2
     end
     object calendar27: TRectShape
       Tag = 27
-      Left = 528
+      Left = 544
       Top = 376
       Width = 100
       Height = 100
@@ -316,7 +317,7 @@ object Form2: TForm2
     end
     object calendar26: TRectShape
       Tag = 26
-      Left = 428
+      Left = 444
       Top = 376
       Width = 100
       Height = 100
@@ -334,7 +335,7 @@ object Form2: TForm2
     end
     object calendar25: TRectShape
       Tag = 25
-      Left = 328
+      Left = 344
       Top = 376
       Width = 100
       Height = 100
@@ -352,7 +353,7 @@ object Form2: TForm2
     end
     object calendar24: TRectShape
       Tag = 24
-      Left = 228
+      Left = 244
       Top = 376
       Width = 100
       Height = 100
@@ -370,7 +371,7 @@ object Form2: TForm2
     end
     object calendar23: TRectShape
       Tag = 23
-      Left = 128
+      Left = 144
       Top = 376
       Width = 100
       Height = 100
@@ -388,7 +389,7 @@ object Form2: TForm2
     end
     object calendar22: TRectShape
       Tag = 22
-      Left = 28
+      Left = 44
       Top = 376
       Width = 100
       Height = 100
@@ -406,7 +407,7 @@ object Form2: TForm2
     end
     object calendar21: TRectShape
       Tag = 21
-      Left = 628
+      Left = 644
       Top = 276
       Width = 100
       Height = 100
@@ -424,7 +425,7 @@ object Form2: TForm2
     end
     object calendar20: TRectShape
       Tag = 20
-      Left = 528
+      Left = 544
       Top = 276
       Width = 100
       Height = 100
@@ -442,7 +443,7 @@ object Form2: TForm2
     end
     object calendar19: TRectShape
       Tag = 19
-      Left = 428
+      Left = 444
       Top = 276
       Width = 100
       Height = 100
@@ -460,7 +461,7 @@ object Form2: TForm2
     end
     object calendar18: TRectShape
       Tag = 18
-      Left = 328
+      Left = 344
       Top = 276
       Width = 100
       Height = 100
@@ -478,7 +479,7 @@ object Form2: TForm2
     end
     object calendar17: TRectShape
       Tag = 17
-      Left = 228
+      Left = 244
       Top = 276
       Width = 100
       Height = 100
@@ -496,7 +497,7 @@ object Form2: TForm2
     end
     object calendar16: TRectShape
       Tag = 16
-      Left = 128
+      Left = 144
       Top = 276
       Width = 100
       Height = 100
@@ -514,7 +515,7 @@ object Form2: TForm2
     end
     object calendar15: TRectShape
       Tag = 15
-      Left = 28
+      Left = 44
       Top = 276
       Width = 100
       Height = 100
@@ -532,7 +533,7 @@ object Form2: TForm2
     end
     object calendar14: TRectShape
       Tag = 14
-      Left = 628
+      Left = 644
       Top = 176
       Width = 100
       Height = 100
@@ -550,7 +551,7 @@ object Form2: TForm2
     end
     object calendar13: TRectShape
       Tag = 13
-      Left = 528
+      Left = 544
       Top = 176
       Width = 100
       Height = 100
@@ -568,7 +569,7 @@ object Form2: TForm2
     end
     object calendar12: TRectShape
       Tag = 12
-      Left = 428
+      Left = 444
       Top = 176
       Width = 100
       Height = 100
@@ -586,7 +587,7 @@ object Form2: TForm2
     end
     object calendar11: TRectShape
       Tag = 11
-      Left = 328
+      Left = 344
       Top = 176
       Width = 100
       Height = 100
@@ -604,7 +605,7 @@ object Form2: TForm2
     end
     object calendar10: TRectShape
       Tag = 10
-      Left = 228
+      Left = 244
       Top = 176
       Width = 100
       Height = 100
@@ -622,7 +623,7 @@ object Form2: TForm2
     end
     object calendar9: TRectShape
       Tag = 9
-      Left = 128
+      Left = 144
       Top = 176
       Width = 100
       Height = 100
@@ -640,7 +641,7 @@ object Form2: TForm2
     end
     object calendar8: TRectShape
       Tag = 8
-      Left = 28
+      Left = 44
       Top = 176
       Width = 100
       Height = 100
@@ -658,7 +659,7 @@ object Form2: TForm2
     end
     object calendar7: TRectShape
       Tag = 7
-      Left = 628
+      Left = 644
       Top = 76
       Width = 100
       Height = 100
@@ -676,7 +677,7 @@ object Form2: TForm2
     end
     object calendar6: TRectShape
       Tag = 6
-      Left = 528
+      Left = 544
       Top = 76
       Width = 100
       Height = 100
@@ -694,7 +695,7 @@ object Form2: TForm2
     end
     object calendar5: TRectShape
       Tag = 5
-      Left = 428
+      Left = 444
       Top = 76
       Width = 100
       Height = 100
@@ -712,7 +713,7 @@ object Form2: TForm2
     end
     object calendar4: TRectShape
       Tag = 4
-      Left = 328
+      Left = 344
       Top = 76
       Width = 100
       Height = 100
@@ -730,7 +731,7 @@ object Form2: TForm2
     end
     object calendar3: TRectShape
       Tag = 3
-      Left = 228
+      Left = 244
       Top = 76
       Width = 100
       Height = 100
@@ -748,7 +749,7 @@ object Form2: TForm2
     end
     object calendar2: TRectShape
       Tag = 2
-      Left = 128
+      Left = 144
       Top = 76
       Width = 100
       Height = 100
@@ -766,7 +767,7 @@ object Form2: TForm2
     end
     object calendar1: TRectShape
       Tag = 1
-      Left = 28
+      Left = 44
       Top = 76
       Width = 100
       Height = 100
@@ -783,7 +784,7 @@ object Form2: TForm2
       ShadowColor = clBtnShadow
     end
     object RectShapeSun: TRectShape
-      Left = 628
+      Left = 644
       Top = 51
       Width = 100
       Height = 25
@@ -801,7 +802,7 @@ object Form2: TForm2
       ShadowColor = clBtnShadow
     end
     object RectShapeSat: TRectShape
-      Left = 528
+      Left = 544
       Top = 51
       Width = 100
       Height = 25
@@ -819,7 +820,7 @@ object Form2: TForm2
       ShadowColor = clBtnShadow
     end
     object RectShapeFri: TRectShape
-      Left = 428
+      Left = 444
       Top = 51
       Width = 100
       Height = 25
@@ -837,7 +838,7 @@ object Form2: TForm2
       ShadowColor = clBtnShadow
     end
     object RectShapeThu: TRectShape
-      Left = 328
+      Left = 344
       Top = 51
       Width = 100
       Height = 25
@@ -855,7 +856,7 @@ object Form2: TForm2
       ShadowColor = clBtnShadow
     end
     object RectShapeWed: TRectShape
-      Left = 228
+      Left = 244
       Top = 51
       Width = 100
       Height = 25
@@ -873,7 +874,7 @@ object Form2: TForm2
       ShadowColor = clBtnShadow
     end
     object RectShapeTue: TRectShape
-      Left = 128
+      Left = 144
       Top = 51
       Width = 100
       Height = 25
@@ -891,7 +892,7 @@ object Form2: TForm2
       ShadowColor = clBtnShadow
     end
     object RectShapeMon: TRectShape
-      Left = 28
+      Left = 44
       Top = 51
       Width = 100
       Height = 25
@@ -909,7 +910,7 @@ object Form2: TForm2
       ShadowColor = clBtnShadow
     end
     object RectShape7: TShape
-      Left = 660
+      Left = 676
       Top = 10
       Width = 8
       Height = 8
@@ -918,7 +919,7 @@ object Form2: TForm2
       Visible = False
     end
     object RectShape1: TShape
-      Left = 636
+      Left = 652
       Top = 10
       Width = 8
       Height = 8
@@ -927,7 +928,7 @@ object Form2: TForm2
       Visible = False
     end
     object RectShape2: TShape
-      Left = 692
+      Left = 708
       Top = 10
       Width = 8
       Height = 8
@@ -936,7 +937,7 @@ object Form2: TForm2
       Visible = False
     end
     object RectShape3: TShape
-      Left = 608
+      Left = 624
       Top = 10
       Width = 8
       Height = 8
@@ -945,7 +946,7 @@ object Form2: TForm2
       Visible = False
     end
     object RectShape4: TShape
-      Left = 720
+      Left = 736
       Top = 10
       Width = 8
       Height = 8
@@ -954,7 +955,7 @@ object Form2: TForm2
       Visible = False
     end
     object RectShape5: TShape
-      Left = 706
+      Left = 722
       Top = 10
       Width = 8
       Height = 8
@@ -963,7 +964,7 @@ object Form2: TForm2
       Visible = False
     end
     object RectShape9: TShape
-      Left = 674
+      Left = 690
       Top = 10
       Width = 8
       Height = 8
@@ -972,7 +973,7 @@ object Form2: TForm2
       Visible = False
     end
     object RectShape11: TShape
-      Left = 622
+      Left = 638
       Top = 10
       Width = 8
       Height = 8
@@ -981,14 +982,14 @@ object Form2: TForm2
       Visible = False
     end
     object lbl_SelectedDate: TLabel
-      Left = 152
+      Left = 168
       Top = 32
       Width = 60
       Height = 13
       Caption = 'yyyy-mm-dd'
     end
     object CmbMonth: TComboBox
-      Left = 528
+      Left = 544
       Top = 24
       Width = 200
       Height = 21
@@ -1011,7 +1012,7 @@ object Form2: TForm2
         'December')
     end
     object CmbYear: TComboBox
-      Left = 428
+      Left = 444
       Top = 24
       Width = 94
       Height = 21
@@ -1019,22 +1020,41 @@ object Form2: TForm2
       TabOrder = 1
       OnChange = CmbYearChange
       Items.Strings = (
+        '2018'
         '2019'
         '2020'
         '2021'
         '2022'
-        '2022'
         '2023'
-        '2024')
+        '2024'
+        '2025')
     end
     object Button1: TButton
-      Left = 28
+      Left = 44
       Top = 20
       Width = 100
       Height = 25
       Caption = 'Current month'
       TabOrder = 2
       OnClick = Button1Click
+    end
+    object btn_NextMonth: TButton
+      Left = 750
+      Top = 276
+      Width = 31
+      Height = 100
+      Caption = '>'
+      TabOrder = 3
+      OnClick = btn_NextMonthClick
+    end
+    object btn_ProvMonth: TButton
+      Left = 7
+      Top = 276
+      Width = 31
+      Height = 100
+      Caption = '<'
+      TabOrder = 4
+      OnClick = btn_ProvMonthClick
     end
   end
 end
