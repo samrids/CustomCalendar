@@ -15,14 +15,8 @@ const
 
 type
   TForm2 = class(TForm)
-    Panel1: TPanel;
-    RectShapeMon: TRectShape;
-    RectShapeTue: TRectShape;
-    RectShapeWed: TRectShape;
-    RectShapeThu: TRectShape;
-    RectShapeFri: TRectShape;
-    RectShapeSat: TRectShape;
-    RectShapeSun: TRectShape;
+    btn_NextMonth: TButton;
+    btn_ProvMonth: TButton;
     calendar1: TRectShape;
     calendar2: TRectShape;
     calendar3: TRectShape;
@@ -58,16 +52,17 @@ type
     calendar33: TRectShape;
     calendar34: TRectShape;
     calendar35: TRectShape;
-    calendar36: TRectShape;
-    calendar37: TRectShape;
-    calendar38: TRectShape;
-    calendar39: TRectShape;
-    calendar40: TRectShape;
-    calendar41: TRectShape;
-    calendar42: TRectShape;
     CmbMonth: TComboBox;
     CmbYear: TComboBox;
     Button1: TButton;
+    lbl_SelectedDate: TLabel;
+    RectShapeSun: TRectShape;
+    RectShapeSat: TRectShape;
+    RectShapeFri: TRectShape;
+    RectShapeThu: TRectShape;
+    RectShapeWed: TRectShape;
+    RectShapeTue: TRectShape;
+    RectShapeMon: TRectShape;
     RectShape7: TShape;
     RectShape1: TShape;
     RectShape2: TShape;
@@ -76,29 +71,25 @@ type
     RectShape5: TShape;
     RectShape9: TShape;
     RectShape11: TShape;
-    lbl_SelectedDate: TLabel;
-    btn_NextMonth: TButton;
-    btn_ProvMonth: TButton;
+    procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure CmbYearChange(Sender: TObject);
     procedure CmbMonthChange(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Panel1Click(Sender: TObject);
-    procedure FormClick(Sender: TObject);
-    procedure btn_NextMonthClick(Sender: TObject);
     procedure btn_ProvMonthClick(Sender: TObject);
-    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btn_NextMonthClick(Sender: TObject);
   private
     { Private declarations }
     FYear, FMonth, FDay: Word;
     FSelectedDate: TDate;
+    FBoxDaySelected: TRectShape;
     function ConvertDateStrToDate(ADateStr: String): TDate;
     procedure CreateCalendar(const AYear: Word; const AMonth: Word);
     procedure calendarCustomClick(Sender: TObject);
     procedure InitCalendarBoxClick;
   public
     { Public declarations }
-    property SelectedDate: TDate read FSelectedDate write FSelectedDate;
+
   end;
 
 var
@@ -108,15 +99,7 @@ implementation
 
 {$R *.dfm}
 
-Uses System.DateUtils;
-
-procedure TForm2.Button1Click(Sender: TObject);
-begin
-  CmbYear.ItemIndex := CmbYear.Items.IndexOf(format('%d', [FYear]));
-  CmbMonth.ItemIndex := CmbMonth.Items.IndexOf
-    (format('%s', [MonthStr[FMonth]]));
-  CreateCalendar(StrToInt(CmbYear.Text), 1 + CmbMonth.ItemIndex);
-end;
+Uses DateUtils;
 
 procedure TForm2.btn_NextMonthClick(Sender: TObject);
 begin
@@ -152,6 +135,14 @@ begin
       CmbYearChange(nil);
     end
   end;
+end;
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+  CmbYear.ItemIndex := CmbYear.Items.IndexOf(format('%d', [FYear]));
+  CmbMonth.ItemIndex := CmbMonth.Items.IndexOf
+    (format('%s', [MonthStr[FMonth]]));
+  CreateCalendar(StrToInt(CmbYear.Text), 1 + CmbMonth.ItemIndex);
 end;
 
 procedure TForm2.calendarCustomClick(Sender: TObject);
@@ -215,7 +206,7 @@ end;
 
 procedure TForm2.CmbMonthChange(Sender: TObject);
 begin
-  CreateCalendar(StrToInt(CmbYear.Text), 1 + CmbMonth.ItemIndex);
+CreateCalendar(StrToInt(CmbYear.Text), 1 + CmbMonth.ItemIndex);
 end;
 
 procedure TForm2.CmbYearChange(Sender: TObject);
@@ -272,7 +263,8 @@ begin
   begin
     if (Self.Components[i] is TRectShape) then
     begin
-      if (Self.Components[i] as TRectShape).tag > 0 then
+      if (((Self.Components[i] as TRectShape).tag > 0) and
+         ((Self.Components[i] as TRectShape).tag <= 35)) then
       begin
         (Self.Components[i] as TRectShape).Caption := '';
         (Self.Components[i] as TRectShape).Brush.Color := clwhite;
@@ -299,10 +291,13 @@ begin
           begin
             (Self.Components[j] as TRectShape).Brush.Color := clLime;
             (Self.Components[j] as TRectShape).Click;
+            FBoxDaySelected:= (Self.Components[j] as TRectShape);
           end;
 
-          if ((i = CurrDay) and (IsCurrMonthYear = False)) then
+          if ((i = CurrDay) and (IsCurrMonthYear = False)) then begin
             (Self.Components[j] as TRectShape).Click;
+            FBoxDaySelected:= (Self.Components[j] as TRectShape);
+          end;
 
           Break;
         end;
@@ -321,18 +316,6 @@ begin
   end;
 end;
 
-procedure TForm2.FormClick(Sender: TObject);
-begin
-  RectShape1.Visible := False;
-  RectShape2.Visible := False;
-  RectShape3.Visible := False;
-  RectShape4.Visible := False;
-  RectShape5.Visible := False;
-  RectShape7.Visible := False;
-  RectShape9.Visible := False;
-  RectShape11.Visible := False;
-end;
-
 procedure TForm2.FormCreate(Sender: TObject);
 begin
   DecodeDate(Date, FYear, FMonth, FDay);
@@ -344,13 +327,320 @@ begin
   CreateCalendar(StrToInt(CmbYear.Text), 1 + CmbMonth.ItemIndex);
 end;
 
-procedure TForm2.FormKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TForm2.FormResize(Sender: TObject);
+var
+  eachWidth, eachHeight: integer;
+  i: integer;
+  parent: TRectShape;
 begin
-  if Key = VK_RIGHT then
-    btn_NextMonth.Click
-  else if Key = VK_LEFT then
-    btn_ProvMonth.Click;
+  eachWidth := (Self.Width - ((btn_ProvMonth.Width*2) + 50)) div 7;
+  eachHeight := (Self.Height - 150) div 5;
+
+  parent := calendar1;
+
+  for i := 0 to Pred(Self.ComponentCount) do
+  begin
+    if Components[i] is TRectShape then
+    begin
+      if ((Components[i] as TRectShape).tag)> 100 then
+         (Components[i] as TRectShape).Width := eachWidth
+      else begin
+        (Components[i] as TRectShape).Width := eachWidth;
+        (Components[i] as TRectShape).Height := eachHeight;
+      end;
+    end;
+  end;
+
+  for i := 0 to Pred(Self.ComponentCount) do
+  begin
+    if (Components[i] is TRectShape) then
+    begin
+      if (Components[i] as TRectShape).Tag <= 7 then
+      begin
+        if (Components[i] as TRectShape).Tag = 1 then
+        begin
+          (Components[i] as TRectShape).Left := btn_ProvMonth.Width+10;
+          (Components[i] as TRectShape).Top := 100;
+          parent := (Components[i] as TRectShape);
+        end
+        else if (Components[i] as TRectShape).Tag = 2 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+        else if (Components[i] as TRectShape).Tag = 3 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+        else if (Components[i] as TRectShape).Tag = 4 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 5 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 6 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 7 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end;
+      end
+      else if ((Components[i] as TRectShape).Tag >= 8) and ((Components[i] as
+        TRectShape).Tag <= 14) then
+      begin
+        if (Components[i] as TRectShape).Tag = 8 then
+        begin
+          (Components[i] as TRectShape).Left := calendar1.Left;
+          (Components[i] as TRectShape).Top := calendar1.BoundsRect.Bottom ;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 9 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 10 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 11 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 12 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 13 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 14 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end;
+      end
+
+      else if ((Components[i] as TRectShape).Tag >= 15) and ((Components[i] as
+        TRectShape).Tag <= 21) then
+      begin
+        if (Components[i] as TRectShape).Tag = 15 then
+        begin
+          (Components[i] as TRectShape).Left := calendar8.Left;
+          (Components[i] as TRectShape).Top := calendar8.BoundsRect.Bottom;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 16 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 17 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 18 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 19 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 20 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 21 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end;
+      end
+
+      else if ((Components[i] as TRectShape).Tag >= 22) and ((Components[i] as
+        TRectShape).Tag <= 28) then
+      begin
+        if (Components[i] as TRectShape).Tag = 22 then
+        begin
+          (Components[i] as TRectShape).Left := calendar15.Left;
+          (Components[i] as TRectShape).Top := calendar15.BoundsRect.Bottom;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 23 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 24 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 25 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 26 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 27 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 28 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end;
+      end
+
+      else if ((Components[i] as TRectShape).Tag >= 29) and ((Components[i] as
+        TRectShape).Tag <= 35) then
+      begin
+        if (Components[i] as TRectShape).Tag = 29 then
+        begin
+          (Components[i] as TRectShape).Left := calendar22.Left;
+          (Components[i] as TRectShape).Top := calendar22.BoundsRect.Bottom ;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 30 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 31 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 32 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 33 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 34 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end
+
+        else if (Components[i] as TRectShape).Tag = 35 then
+        begin
+          (Components[i] as TRectShape).Left := parent.BoundsRect.Right;
+          (Components[i] as TRectShape).Top := parent.Top;
+          parent := (Components[i] as TRectShape);
+        end;
+      end;
+    end;
+  end;
+
+  RectShapeMon.Left:= calendar1.Left;
+  RectShapeTue.Left:= calendar2.Left;
+  RectShapeWed.Left:= calendar3.Left;
+  RectShapeThu.Left:= calendar4.Left;
+  RectShapeFri.Left:= calendar5.Left;
+  RectShapeSat.Left:= calendar6.Left;
+  RectShapeSun.Left:= calendar7.Left;
+
+  if assigned(FBoxDaySelected) then
+   FBoxDaySelected.Click;
+
+  Button1.Left := calendar1.Left;
+  lbl_SelectedDate.Left := RectShapeTue.Left;
+  CmbYear.Width:= RectShapeSat.Width div 2;
+  CmbYear.Left := (RectShapeSat.BoundsRect.Right - (RectShapeSat.Width div 2))-2;
+
+  CmbMonth.Width:= RectShapeSun.Width;
+  CmbMonth.Left :=  RectShapeSun.BoundsRect.right-RectShapeSun.Width;
+btn_ProvMonth.Left := calendar15.BoundsRect.Left - btn_ProvMonth.Width;
+btn_ProvMonth.Top := calendar15.Top+((calendar15.BoundsRect.Bottom - calendar15.BoundsRect.Top)-btn_ProvMonth.Height) div 2;
+
+btn_NextMonth.Left := calendar21.BoundsRect.Right;
+btn_NextMonth.Top  := calendar21.BoundsRect.Top+((calendar21.BoundsRect.Bottom - calendar21.BoundsRect.Top) - btn_NextMonth.Height) div  2;
+
 end;
 
 procedure TForm2.InitCalendarBoxClick;
@@ -361,24 +651,12 @@ begin
   begin
     if (Self.Components[i] is TRectShape) then
     begin
-      if (Self.Components[i] as TRectShape).tag > 0 then
+      if (((Self.Components[i] as TRectShape).tag > 0) and ( (Self.Components[i] as TRectShape).tag <= 35)) then
       begin
         (Self.Components[i] as TRectShape).OnClick := calendarCustomClick;
       end;
     end;
   end;
-end;
-
-procedure TForm2.Panel1Click(Sender: TObject);
-begin
-  RectShape1.Visible := False;
-  RectShape2.Visible := False;
-  RectShape3.Visible := False;
-  RectShape4.Visible := False;
-  RectShape5.Visible := False;
-  RectShape7.Visible := False;
-  RectShape9.Visible := False;
-  RectShape11.Visible := False;
 end;
 
 end.
